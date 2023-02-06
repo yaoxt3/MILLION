@@ -1,0 +1,15 @@
+reach-v1
+push-v1
+pick-place-v1
+door-open-v1
+drawer-open-v1
+drawer-close-v1
+button-press-topdown-v1
+* peg-insert-side-v1
+window-open-v1
+basketball-v1
+door-close-v1
+shelf-place-v1
+sweep-into-v1
+lever-pull-v1
+* sweep-v1

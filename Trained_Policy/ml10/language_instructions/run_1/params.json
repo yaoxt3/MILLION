@@ -1,0 +1,49 @@
+{"vmpo_kwargs": {"epochs": 2, "minibatches": 1, "discrete_actions": false, "pop_art_reward_normalization": true, "T_target_steps": 100}, "async_vmpo_kwargs": {"epochs": 4, "discrete_actions": false, "T_target_steps": 100, "batch_B": 128, "epsilon_eta": 0.1, "batch_T": 64, "gae_lambda": 1, "num_tasks": 50}, "sampler_kwargs": {"batch_T": 64, "batch_B": 616, "env_kwargs": {"benchmark": "ml10", "action_repeat": 2, "demonstration_action_repeat": 5, "mode": "meta_training", "max_trials_per_episode": 3}, "eval_env_kwargs": {"benchmark": "ml10", "action_repeat": 2, "demonstration_action_repeat": 5, "mode": "all", "max_trials_per_episode": 3}, "eval_n_envs": 88, "eval_max_steps": 100000.0, "eval_max_trajectories": 352}, "agent_kwargs": {"model_kwargs": {"sequence_length": 64, "size": "medium", "linear_value_output": false, "seperate_value_network": false}}, "runner_kwargs": {"n_steps": 400000000.0, "log_interval_steps": 5000000.0}, "snapshot": null, "algo": "async_vmpo", "name": "run", "run_ID": 1}
+
+last commit: commit 4b999ba1298287eb41a74b95649f27ea770f580f
+Author: Alexander Koch <alexander@4koch.de>
+Date:   Mon Feb 15 21:52:44 2021 +0100
+
+    update experiment visualizations
+
+diff --git a/learning_to_be_taught/environments/meta_world/generalized_meta_world.py b/learning_to_be_taught/environments/meta_world/generalized_meta_world.py
+index 4b2647c..df1be97 100644
+--- a/learning_to_be_taught/environments/meta_world/generalized_meta_world.py
++++ b/learning_to_be_taught/environments/meta_world/generalized_meta_world.py
+@@ -3,7 +3,7 @@ import numpy as np
+ import time
+ from learning_to_be_taught.environments.meta_world.scripted_policies import policies
+ from learning_to_be_taught.environments.meta_world.meta_world_benchmarks import ML10, ML1, SingleEnv, ML45
+-from learning_to_be_taught.environments.meta_world.meta_world_benchmarks_v2 import ML10V2, ML1V2, SingleEnvV2, ML45V2
++# from learning_to_be_taught.environments.meta_world.meta_world_benchmarks_v2 import ML10V2, ML1V2, SingleEnvV2, ML45V2
+ import mujoco_py
+ 
+ 
+@@ -39,7 +39,6 @@ class GeneralizedMetaWorld(gym.Env):
+         else:
+             self.observation_space = gym.spaces.Dict({
+                 'state': gym.spaces.Box(low=-10, high=10, shape=(obs_size,)),
+-                'camera_image': gym.spaces.Box(low=-10, high=10, shape=(128, 128, 3)),
+                 'task_id': gym.spaces.Discrete(50),
+                 'demonstration_phase': gym.spaces.Discrete(2),
+             })
+@@ -61,7 +60,6 @@ class GeneralizedMetaWorld(gym.Env):
+     def _reset_env(self, new_episode=False):
+         if new_episode:
+             self.env_name, self.env, task, self.env_id = self.benchmark.sample_env_and_task()
+-            print(f'sampled {self.env_name}')
+             self.env.set_task(task)
+             if self.visual_observations:
+                 self.setup_camera()
+diff --git a/learning_to_be_taught/environments/meta_world/language_meta_world.py b/learning_to_be_taught/environments/meta_world/language_meta_world.py
+index 9df2374..f895717 100644
+--- a/learning_to_be_taught/environments/meta_world/language_meta_world.py
++++ b/learning_to_be_taught/environments/meta_world/language_meta_world.py
+@@ -114,7 +114,6 @@ class LanguageMetaWorld(GeneralizedMetaWorld):
+             state=state,
+             task_id=np.array(self.env_id),
+             demonstration_phase=np.array(int(self.demonstration_phase)),
+-            camera_image=camera_image
+         )
+ 
+         return full_obs
