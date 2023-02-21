@@ -78,9 +78,7 @@ class LanguageMetaWorld(GeneralizedMetaWorld):
 
         done = self.trial_in_episode >= self.max_trials_per_episode
         info = self.append_env_info(info)
-        if done:
-            self.valid_samples.append((full_observation, reward_sum, info))
-            #self.opposite_samples.append(opp_observation)
+
         return full_observation, reward_sum, done, info
 
     def get_instruction_word(self):
