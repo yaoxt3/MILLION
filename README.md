@@ -30,11 +30,7 @@ our algorithm utilizes the language instructions to shape its interpretation of 
 
 2. source activate metalearn
 
-for GPU version:
 3. conda install pytorch==1.8.1 torchvision==0.9.1 torchaudio==0.8.1 cudatoolkit=10.2 -c pytorch
-
-for CPU version:
-3. conda install pytorch==1.8.1 torchvision==0.9.1 torchaudio==0.8.1 cpuonly -c pytorch
 
 To install rlpyt:
 4. pip install atari-py pyprind opencv-python psutil
